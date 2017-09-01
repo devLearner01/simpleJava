@@ -19,7 +19,7 @@ public class TESTex_for_section_9Point3_programming_1 {
 	@Before
 	public void setUp() throws Exception {
 		
-		this.hashTable = new String[10];
+		this.hashTable = new String[10]; 
 		
 		int index = "lookingForMe".hashCode() % hashTable.length;
 		if( index < 0 )
