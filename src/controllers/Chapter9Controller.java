@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 import chapter9.Chapter9_exercises;
@@ -19,34 +20,45 @@ public class Chapter9Controller {
 
 		Chapter9_exercises ch9ex = new Chapter9_exercises();
 		
+		// run ex_for_section_9Point1_selfcheck_1
 		ch9ex.ex_for_section_9Point1_selfcheck_1();
 		
+		// run ex_for_section_9Point2_programming_1
 		ch9ex.ex_for_section_9Point2_programming_1( GlobalConstants.SAMPLE_TEXT_FILE );
 		
+		// prepare ex_for_section_9Point3_programming_1
+		String key = prepare_ex_for_section_9Point3_programming_1();
+		
+		// run ex_for_section_9Point3_programming_1
+		int pos = ch9ex.ex_for_section_9Point3_programming_1( this.hashTable, key);
+		if(pos == -1)
+			log.info( "key not found." );
+		else
+			log.info( "position where key is located: " + pos );
+	}
+	
+	/**
+	 * this method is used to add a key to the hashTable
+	 * @return
+	 */
+	private String prepare_ex_for_section_9Point3_programming_1() {
 		
 		log.info( "preparing for ch9ex.ex_for_section_9Point3_programming_1" );
 		
-		int index = "lookingForMe".hashCode() % hashTable.length;
-		if( index < 0 )
-			index += index + hashTable.length;
-		this.hashTable[ index ]  =  "lookingForMe" ;
+		String key;
 		
-		index = "anotherKey".hashCode() % hashTable.length;
+		// dialog to insert key
+		System.out.println( "please tell me the key to insert in the hashTable: " );
+		Scanner in = new Scanner(System.in);
+		key = in.nextLine();
+		in.close();
+		
+		int index = key.hashCode() % hashTable.length;
 		if( index < 0 )
 			index += hashTable.length;
-		this.hashTable[ index ]  =  "anotherKey" ;
+		this.hashTable[ index ]  =  key;
 		
-		int pos = ch9ex.ex_for_section_9Point3_programming_1( this.hashTable, "lookingForMe" );
-		if(pos == -1)
-			log.info( "key not found." );
-		else
-			log.info( "position where key is located: " + pos );
-		
-		pos = ch9ex.ex_for_section_9Point3_programming_1( this.hashTable, "anotherKey" );
-		if(pos == -1)
-			log.info( "key not found." );
-		else
-			log.info( "position where key is located: " + pos );
+		return key;
 	}
 
 }
